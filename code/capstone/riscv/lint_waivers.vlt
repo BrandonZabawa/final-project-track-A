@@ -1,0 +1,9 @@
+`verilator_config
+// lint_waivers.vlt -- one line per waiver: the rule, where it applies, and above it, the reason.
+// From the guide, section 7.
+// SPEC.md, Memory map: index = (addr >> 2) mod WORDS. The other address bits are unused by design.
+lint_off -rule UNUSEDSIGNAL -file "*rv32i_imem.sv" -match "*'addr'*"
+lint_off -rule UNUSEDSIGNAL -file "*rv32i_dmem.sv" -match "*'addr'*"
+// TODO: two warnings remain (funct7 bits, mem_read in rv32i_core.sv).
+//       Find out what each signal was meant to do before you waive it.
+//       One of them bears on the security question (guide section 8).

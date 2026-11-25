@@ -36,6 +36,15 @@ def sample_beq(taken, back):
     """beq only: the outcome, and which way the target lies."""
 
 
+# TODO (guide section 5, "Yours"): the model above never looks at operand values,
+# immediates, or addresses. Add coverpoints your plan calls for, e.g.
+#   rv.imm_corner  : imm in {-2048, -1, 0, 1, 2047} for I-type
+#   rv.addr_wrap   : lw/sw effective address past word 63 (F15)
+#   rv.rs1_eq_rs2  : beq with rs1 == rs2 vs. two different registers
+# Write the sampling function the same way as sample_beq, call it from sample(),
+# and expect the overall % to DROP -- that is progress (closure.md section 2).
+
+
 def sample(word, iss):
     """The env calls this before each instruction: the word, and the state before it."""
     kind = kind_of(word)

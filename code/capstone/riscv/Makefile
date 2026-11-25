@@ -12,7 +12,7 @@ VERILOG_SOURCES = $(DUT) \
                   $(CURDIR)/rv32i_imem.sv \
                   $(CURDIR)/rv32i_dmem.sv
 TOPLEVEL = rv32i_top
-MODULE   = test_smoke,test_final
+MODULE   = test_smoke,test_final,test_yours
 
 export PYTHONPATH := $(CURDIR)/../../lib:$(PYTHONPATH)
 

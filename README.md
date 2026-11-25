@@ -12,12 +12,16 @@ code/
     test_smoke.py       shipped smoke test, unchanged
     test_final.py       the tests printed in the guide (sections 3, 4, 5, 8)
     env/                core_env.py, stimulus.py, coverage.py, from the guide
-    probe.py            the guide's ISS-only stimulus probe
+    probe.py            the guide's ISS-only stimulus probe (+ TODO counters)
+    test_yours.py       SCAFFOLD: skipped stubs with TODO comments for the guide's "Yours" tests
+    mutants_mine.yaml   SCAFFOLD: format + ideas; your bugs go here
+    lint_waivers.vlt    the guide's two waivers; two warnings left for you to explain
 ```
 
 The env/test/probe files were typed in from the guide PDF. Compare them with the
 official `final-guide-track-a-files.zip` from Webcourses and keep that version if they differ.
-Every "Yours" item in the guide is still open, and so are all the .md deliverables and REPORT.pdf.
+The test_yours.py stubs, the TODO comments, and the scaffold files were written with AI
+help (comments and setup only); the test bodies and every "Yours" item are still open, and so are all the .md deliverables and REPORT.pdf.
 
 ## Run on eustis
 

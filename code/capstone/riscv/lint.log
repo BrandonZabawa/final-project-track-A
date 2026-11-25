@@ -1,0 +1,11 @@
+%Warning-UNUSEDSIGNAL: rv32i_core.sv:54:17: Bits of signal are not used: 'funct7'[6,4:0]
+                                          : ... note: In instance 'rv32i_top.u_core'
+   54 |     logic [6:0] funct7;
+      |                 ^~~~~~
+                       ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.020
+                       ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: rv32i_core.sv:75:28: Signal is not used: 'mem_read'
+                                          : ... note: In instance 'rv32i_top.u_core'
+   75 |     logic       reg_write, mem_read, mem_write, branch, jump, alu_src;
+      |                            ^~~~~~~~
+%Error: Exiting due to 2 warning(s)

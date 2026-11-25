@@ -1,0 +1,25 @@
+# mutants_mine.yaml -- bugs WE wrote, one per feature in vplan.md. The released pool's format.
+# Run (from code/, PYTHONPATH set):
+#   python -m craft_mutate.mutate --tb capstone/riscv --sim icarus \
+#       --pool capstone/riscv/mutants_mine.yaml --dut-dir capstone/riscv
+#
+# Rules (guide section 6):
+#   * find: must match rv32i_core.sv EXACTLY (spaces included) and appear only ONCE.
+#     Copy the line straight out of the .sv file.
+#   * One small change each. Aim for one bug per feature row F1..F16 in vplan.md.
+#   * Every [SURVIVED] bug becomes a row in FINDINGS.md, tagged reachability or observability.
+#   * Grad study Q5 needs 8+ of these with a `tier:` line (see CONVENTIONS.md).
+#
+# Ideas to look for in rv32i_core.sv (pick your own lines):
+#   F2  sub        -> the ALU_SUB case
+#   F10 sw         -> what drives the data memory write enable / write data
+#   F11 beq        -> the branch condition, or imm_b's bit layout
+#   F14 x0         -> the `rd != 5'd0` guard on the register write
+#   F15 memory map -> the index bits in rv32i_dmem.sv (not mutated: why? check the Makefile's DUT)
+dut: rv32i_core.sv
+mutants:
+  # TODO: replace this template with your bugs (keep the same four keys).
+  # - id: short_snake_case_name
+  #   desc: "F?: what the bug does, in one line"
+  #   find: "exact line from rv32i_core.sv"
+  #   replace: "the same line, changed"

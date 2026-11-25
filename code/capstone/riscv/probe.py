@@ -26,6 +26,11 @@ for _ in range(20):
             taken = iss.reg(rs1) == iss.reg(rs2)
             seen["beq taken" if taken else "beq not taken"] += 1
             seen["beq taken, two different registers"] += taken and rs1 != rs2
+        # TODO (guide section 4, "Yours"): add one counter per corner in your plan, e.g.
+        #   seen["imm at an end of its range"]  -- imm == -2048 or 2047 (decode the word)
+        #   seen["lw reads a word sw wrote"]    -- keep a set of word indexes stored so far
+        #   seen["address past word 63"]        -- (iss.reg(rs1) + imm) >> 2 >= 64 for lw/sw
+        # Then reshape VALUES / shape_c in env/stimulus.py until no counter is zero.
         iss.step()
 for name, n in seen.items():
     print(f"{name:36s} {n:5d}")
