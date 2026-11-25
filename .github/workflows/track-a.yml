@@ -23,6 +23,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y iverilog verilator
+          python -m pip install -U pip setuptools wheel
           pip install cocotb==1.9.2 pyvsc cocotb-coverage pyyaml
       - name: Run the suite (make)
         run: |

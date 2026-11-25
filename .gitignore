@@ -6,3 +6,5 @@ results.xml
 *.fst
 *.zip
 *.bundle
+curve.csv
+coverage.yml

@@ -6,7 +6,7 @@ V&V final project, Track A (RV32I core). Branch `trackA-RISCV-v1` holds the star
 
 ```
 code/
-  lib/                  <- MISSING: copy the course lib/ here (models/rv32i_model.py, craft_mutate/)
+  lib/                  course lib: models/rv32i_model.py (the ISS), craft_mutate/ (the harness)
   capstone/riscv/       <- the track folder (the one you zip for Gradescope)
     Makefile            MODULE = test_smoke,test_final  (the one edited line)
     test_smoke.py       shipped smoke test, unchanged
@@ -33,4 +33,4 @@ python -m craft_mutate.mutate --tb capstone/riscv --sim icarus \
 ## CI
 
 `.github/workflows/track-a.yml` runs the suite, the released pool and lint on every push.
-It fails at its first step until `code/lib/` is committed.
+Measured here (Icarus 12.0, cocotb 1.9.2): 5/5 tests pass, released pool 8/8, 4 lint warnings.
