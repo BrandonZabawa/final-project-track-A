@@ -1,0 +1,51 @@
+name: track-a-tests
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  sim:
+    runs-on: ubuntu-24.04          # apt iverilog is 12.0, matching the course stack
+    defaults:
+      run:
+        working-directory: code
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check that the course lib/ is committed
+        run: |
+          if [ ! -f lib/models/rv32i_model.py ]; then
+            echo "::error::code/lib/models/rv32i_model.py is missing. Copy the course lib/ folder (models/ and craft_mutate/) into code/lib/ and push."
+            exit 1
+          fi
+      - name: Install simulators and Python tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog verilator
+          pip install cocotb==1.9.2 pyvsc cocotb-coverage pyyaml
+      - name: Run the suite (make)
+        run: |
+          export PYTHONPATH="$PWD/lib"
+          make -s -C capstone/riscv SIM=icarus
+          ! grep -q "<failure" capstone/riscv/results.xml
+      - name: Released mutant pool
+        if: hashFiles('code/lib/craft_mutate/**') != ''
+        run: |
+          export PYTHONPATH="$PWD/lib"
+          python -m craft_mutate.mutate --tb capstone/riscv --sim icarus \
+            --pool capstone/riscv/mutants_released.yaml --dut-dir capstone/riscv
+      - name: Lint
+        working-directory: code/capstone/riscv
+        run: |
+          verilator --lint-only -Wall --top-module rv32i_top \
+            rv32i_core.sv rv32i_top.sv rv32i_imem.sv rv32i_dmem.sv 2>&1 | tee lint.log || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results
+          path: |
+            code/capstone/riscv/results.xml
+            code/capstone/riscv/coverage.yml
+            code/capstone/riscv/curve.csv
+            code/capstone/riscv/lint.log
